@@ -54,7 +54,7 @@ const addToFav=(id,e)=>
 {
 
     if (favMovies.includes(id)) {
-        e.target.style.color='black'
+        e.target.style.color='white'
         favDispatch(removeFromFavourite(favMovies.indexOf(id)))
 
 
