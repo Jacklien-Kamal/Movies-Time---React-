@@ -22,7 +22,7 @@ import { movieAction } from "../../store/slices/movies";
 
 
         const [page, setPages] = useState(1)
-        const [searchQuery,setSearchQuery]=useState(' ')
+        const [searchQuery,setSearchQuery]=useState('')
         const dispatch=useDispatch()
        const movies= useSelector((state)=>state.movies.movies)
     
@@ -81,15 +81,16 @@ const filteredMovies = movies.filter((movie) =>
 <button className="btn btn-success mx-3  fs-5"  onClick={()=>{nextMovies()}}>Next <FaCaretRight/></button>
 
 </div>
-<input
-                        type="text"
+
+
+    <div className="contaner-fluid mx-5 ">
+    <input
+                        type="search"
                         className="form-control mb-3"
                         placeholder="Search movies..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                     />
-
-    <div className="contaner-fluid mx-5 ">
+                    />
         <Row xs={1} md={5} className="g-2" >
             {filteredMovies.map((movie) => (
                 <Col key={movie.id} >
