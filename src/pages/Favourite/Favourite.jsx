@@ -42,15 +42,16 @@ const Favourite = () => {
    
     return (
         <>
+        <div className="bg-dark">
             <Row xs={1} md={4} className="g-4" >
                 {movies.map((movie) => (
                     <Col key={movie.id}>
                         <Card>
                             <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-                            <Card.Body>
+                            <Card.Body style={{backgroundColor:'black'}} >
                                 <FaTrash onClick={() => { removeFav(movie.id) }} className="text-danger float-end"></FaTrash>
                                 <Card.Title className="text-light">{movie.title}</Card.Title>
-                                <Button className="btn btn-primary"onClick={() => {
+                                <Button className="btn btn-success"onClick={() => {
                                 navigate(`/details/${movie.id}`)}}>Details</Button>
 
                             </Card.Body>
@@ -58,6 +59,7 @@ const Favourite = () => {
                     </Col>
                 ))}
             </Row>
+            </div>
         </>
     );
 }

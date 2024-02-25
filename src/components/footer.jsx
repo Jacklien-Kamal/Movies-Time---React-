@@ -3,7 +3,7 @@ const Footer=()=>{
 
    return<>
    
-<footer className="text-center col-12  text-lg-start bg-drak  my-3">
+<footer className="text-center col-12  text-lg-start bg-drak  border">
 
 
  
