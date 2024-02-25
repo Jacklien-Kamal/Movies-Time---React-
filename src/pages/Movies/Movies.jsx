@@ -87,7 +87,7 @@ const addToFav=(id,e)=>
 
                         <Card.Body>
                         <FaHeart className="float-end"  onClick={()=>{addToFav(movie.id,event)}}/>
-                            <Card.Title>{movie.title}</Card.Title>
+                            <Card.Title className="text-light">{movie.title}</Card.Title>
 
                             <button className="btn btn-primary " onClick={() => {
                                 navigate(`/details/${movie.id}`)

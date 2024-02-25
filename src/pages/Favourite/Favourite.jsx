@@ -49,8 +49,9 @@ const Favourite = () => {
                             <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
                             <Card.Body>
                                 <FaTrash onClick={() => { removeFav(movie.id) }} className="text-danger float-end"></FaTrash>
-                                <Card.Title >{movie.title}</Card.Title>
-                                <Button className="btn btn-primary">Details</Button>
+                                <Card.Title className="text-light">{movie.title}</Card.Title>
+                                <Button className="btn btn-primary"onClick={() => {
+                                navigate(`/details/${movie.id}`)}}>Details</Button>
 
                             </Card.Body>
                         </Card>
