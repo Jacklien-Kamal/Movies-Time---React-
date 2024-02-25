@@ -9,31 +9,31 @@ import { addToFavourite,removeFromFavourite } from "../../store/slices/favourite
 import axiosInstance from "../../axiosConfig/instance"
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import { FaCaretRight } from "react-icons/fa6";
+import { FaCaretLeft } from "react-icons/fa6";
+
+import { movieAction } from "../../store/slices/movies";
 
 
 
 
-const Movies = () => {
+
+    const Movies = () => {
 
 
-    const [movies, setMovies] = useState([])
-    const [page,setPages]=useState(1)
-    useEffect(() => {
-
-        axiosInstance.get(`https://api.themoviedb.org/3/movie/popular?f1eee73290adf14e14835c99a5183f79&page=${page}`
-        // axiosInstance.get('https://api.themoviedb.org/3/movie/popular?f1eee73290adf14e14835c99a5183f79',{
-            // params:{
-            //     limit:5
-            //   }
-        // }
-        ).then((res) => {
-            console.log(res.data.results);
-            setMovies(res.data.results)
-        }).catch((err) => {
-            console.log(err);
-        })
-
-    }, [page])
+        const [page, setPages] = useState(1)
+        const dispatch=useDispatch()
+       const movies= useSelector((state)=>state.movies.movies)
+    
+    
+    
+        useEffect(() => {
+            dispatch(movieAction(page))
+    
+    
+    
+        }, [page])
+    
 
     const nextMovies = () => {
         setPages((prevPage) => prevPage + 1);
@@ -43,7 +43,7 @@ const Movies = () => {
     };
     const navigate = useNavigate();
 
-
+console.log(movies);
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 const favMovies= useSelector((state)=>state.favouriteMov.favourites)
@@ -67,20 +67,22 @@ const addToFav=(id,e)=>
   
 
 }
+
     return <>
     
-<div className="my-1">
+<div className="mt-1 mb-2 mx-5">
 
-<button className="btn btn-danger  " onClick={()=>{prevMovies()}} >previous</button>
+<button className="btn btn-danger  fs-5 " onClick={()=>{prevMovies()}} > <FaCaretLeft/> Previous</button>
 
-<button className="btn btn-primary float-end  "  onClick={()=>{nextMovies()}}>next</button>
+<button className="btn btn-success mx-3  fs-5"  onClick={()=>{nextMovies()}}>Next <FaCaretRight/></button>
 
 </div>
-    <div className="contaner-fluid">
-        <Row xs={1} md={6} className="g-2">
+
+    <div className="contaner-fluid mx-5">
+        <Row xs={1} md={5} className="g-2" >
             {movies.map((movie) => (
-                <Col key={movie.id}>
-                    <Card>
+                <Col key={movie.id} >
+                    <Card >
                         <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
 
                         <Card.Body>

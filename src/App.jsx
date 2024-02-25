@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Login } from "./pages/Login/Login"
 import { Register } from "./pages/Register/Register"
 import Header from "./components/Header"
@@ -7,33 +7,40 @@ import Favourite from "./pages/Favourite/Favourite"
 import Details from "./pages/Movies/movieDetails"
 import { Provider } from "react-redux"
 import store from "./store/store"
+import AppLayout from "./AppLayout"
+import { useState } from "react"
+import { LanguageProvider } from "./context/language"
+import Home from "./pages/home/home"
+import ControlledCarousel from "./pages/home/home"
+
+const routes=createBrowserRouter([
+
+{path:'/', element:<AppLayout /> ,children:[
+{index:true ,element:<Movies /> },
+{path:'favourite' ,element:<Favourite /> },
+{path:'home' ,element:< ControlledCarousel/> },
+
+{path:'login' ,element:<Login /> },
+{path:'register' ,element:<Register /> },
 
 
+{path:'/details/:id' ,element:<Details /> },
+
+
+]}
+
+])
 function App() {
-
+const [lang,setLang]=useState('en')
   return (
-    <>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Movies />} />
-          <Route path='/favourite' element={<Favourite />} />
-          <Route path='/login' element={<Login />} />
-            
-
-          <Route path='register' element={<Register />} />
-          <Route path='/details/:id' element={<Details />} />
-
-
-
-
-        </Routes>
-
-      </BrowserRouter>
+  <LanguageProvider value={{lang,setLang}}>
+     <Provider store={store}>
+      <RouterProvider router={routes}/>
+     
       </Provider>
+  </LanguageProvider>
+   
 
-    </>
   )
 }
 

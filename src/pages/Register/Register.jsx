@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { registerUser } from '../../services/auth';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Register = () => {
+    const navigate=useNavigate()
 
     const [users, setUsers] = useState({
        
@@ -48,15 +52,26 @@ export const Register = () => {
         }
         
     }
-    const handleSubmit = () => {
+    const register =async (e) => {
         e.preventDefault()
+        if(!errors.emailError && !errors.passwordError&& !errors.nameError && !errors.userNameErrors&& !errors.ConfirmpPasswordError){
+            try{
+                toast('Done !',{  icon: '👏',  style: {    borderRadius: '10px',    background: '#333',    color: '#fff',  },});
+                await registerUser(users.email,users.password)
+                navigate('/login')
+           
+            }catch(error){ toast.error('faild')}
+            
+        }else{
+            toast.error('Invalid email or password.');
+        }
     }
 
     return <>
     <div className='container col-6 mt-5 border p-4 bg-dark rounded-4 '>
 
         <h1 className='text-light'>Register !!</h1>
-        <form onSubmit={(e) => { handleSubmit(e) }}>
+        <form onSubmit={(e) => { register(e) }}>
 
         <div className="form-group">
                 <label for="exampleInputEmail1">Name</label>
@@ -108,6 +123,7 @@ export const Register = () => {
 
             <button type="submit" className="btn btn-success">Register</button>
         </form>
+        <Toaster  position="top-center"/>
         </div>
     </>
 }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -15,6 +15,7 @@ const Favourite = () => {
     const favMovies = useSelector((state) => state.favouriteMov.favourites)
     const dispatch = useDispatch()
     // console.log(favMovies);
+
 
     const [movies, setMovies] = useState([]); // Change here
     const { id } = useParams();
@@ -38,9 +39,10 @@ const Favourite = () => {
    const removeFav = (moviId) => {
         dispatch(removeFromFavourite(favMovies.indexOf(moviId)))
     }
+   
     return (
         <>
-            <Row xs={1} md={4} className="g-4">
+            <Row xs={1} md={4} className="g-4" >
                 {movies.map((movie) => (
                     <Col key={movie.id}>
                         <Card>
