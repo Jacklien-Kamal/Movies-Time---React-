@@ -22,6 +22,7 @@ import { movieAction } from "../../store/slices/movies";
 
 
         const [page, setPages] = useState(1)
+        const [searchQuery,setSearchQuery]=useState(' ')
         const dispatch=useDispatch()
        const movies= useSelector((state)=>state.movies.movies)
     
@@ -65,10 +66,13 @@ const addToFav=(id,e)=>
         favDispatch(addToFavourite(id));
     }
   
-
+// const filteredMovie=
 }
-
+const filteredMovies = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return <>
+
 <div style={{backgroundColor:'black'}} className="m-0" >
 <div className=" mb-2 mx-5 py-2">
 
@@ -77,10 +81,17 @@ const addToFav=(id,e)=>
 <button className="btn btn-success mx-3  fs-5"  onClick={()=>{nextMovies()}}>Next <FaCaretRight/></button>
 
 </div>
+<input
+                        type="text"
+                        className="form-control mb-3"
+                        placeholder="Search movies..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                     />
 
     <div className="contaner-fluid mx-5 ">
         <Row xs={1} md={5} className="g-2" >
-            {movies.map((movie) => (
+            {filteredMovies.map((movie) => (
                 <Col key={movie.id} >
                     <Card >
                         <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
